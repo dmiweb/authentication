@@ -1,0 +1,13 @@
+.loading {
+  display: flex;
+  justify-content: center;
+  font-size: 1.3rem;
+}
+
+.error-message {
+  position: absolute;
+  right: 220px;
+  bottom: 0;
+  font-size: 0.8rem;
+  color: #cc3636;
+}

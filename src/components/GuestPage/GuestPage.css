@@ -1,0 +1,16 @@
+.guest-page {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 100px 50px;
+  border-radius: 10px;
+  background-color: #e8ebee;
+}
+.guest-page-title {
+  margin: 0;
+  font-size: 3rem;
+  font-weight: 400;
+}
+.guest-page-description {
+  margin: 0;
+  font-size: 1.2rem;
+}

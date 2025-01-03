@@ -1,0 +1,29 @@
+.user-profile {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-profile-name {
+  color: #2a2424;
+}
+
+.user-profile-wrap-avatar {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  box-shadow: 0 0 1px 1px #c4c4c4;
+}
+.user-profile-avatar {
+  width: 100%;
+  border-radius: 50%;
+  font-size: 0.8rem;
+  text-align: center;
+  object-fit: cover;
+}
+
+.profile-logout-btn {
+  box-shadow: 0 0 1px 1px #d80136;
+  color: #d80136;
+}
