@@ -33,7 +33,7 @@ jobs:
         # Путь к скомпилированным файлам. Обычно это dist или build
         cp -r ./dist/
         # Установка gh-pages
-        npm install -g gh-pages
+        # npm install -g gh-pages
         # Развёртывание
         gh-pages -d build
       env:
