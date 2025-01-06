@@ -1,0 +1,37 @@
+name: deploy-authentication
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Проверка репозитория
+      uses: actions/checkout@v2
+
+    - name: Установка Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '20' # Замените на нужную вам версию Node.js
+
+    - name: Установка зависимостей
+      run: yarn install
+
+    - name: Сборка
+      run: yarn build # Замените на свою команду сборки, если нужно
+
+    - name: Развёртывание на GitHub Pages
+      run: |
+        echo "Ищем ваш скомпилированный сайт"
+        # Путь к скомпилированным файлам. Обычно это dist или build
+        cp -r ./dist/* ./build/
+        # Установка gh-pages
+        yarn add -g gh-pages
+        # Развёртывание
+        gh-pages -d build
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
