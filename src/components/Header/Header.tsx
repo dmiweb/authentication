@@ -1,7 +1,8 @@
-import './Header.css'
+import { ReactNode } from 'react';
+import './Header.css';
 
 type HeaderProps = {
-  children: JSX.Element | JSX.Element[]
+  children?: ReactNode
 }
 
 const Header = (props: HeaderProps): JSX.Element => {

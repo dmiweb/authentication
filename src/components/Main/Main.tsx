@@ -1,7 +1,8 @@
+import { ReactNode } from 'react';
 import './Main.css';
 
 type MainProps = {
-  children: JSX.Element | JSX.Element[]
+  children?: ReactNode
 }
 
 function Main({children}: MainProps): JSX.Element {
