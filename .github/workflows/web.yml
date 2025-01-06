@@ -21,6 +21,9 @@ jobs:
     - name: Установка зависимостей
       run: yarn install
 
+    - name: Тестирование
+      run: yarn lint
+
     - name: Сборка
       run: yarn build # Замените на свою команду сборки, если нужно
 

@@ -1,6 +1,10 @@
-import './Main.css'
+import './Main.css';
 
-function Main({children}) {
+type MainProps = {
+  children: JSX.Element | JSX.Element[]
+}
+
+function Main({children}: MainProps): JSX.Element {
   return (
     <main className='main'>
       {children}

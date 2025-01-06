@@ -1,6 +1,10 @@
 import './Header.css'
 
-const Header = (props): JSX.Element => {
+type HeaderProps = {
+  children: JSX.Element | JSX.Element[]
+}
+
+const Header = (props: HeaderProps): JSX.Element => {
   const {children} = props;
 
   return (

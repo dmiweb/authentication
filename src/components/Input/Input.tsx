@@ -1,6 +1,13 @@
 import './Input.css'
 
-const Input = ({ type, name, placeholder, value }): JSX.Element => {
+type InputProps = {
+  type: string, 
+  name: string, 
+  placeholder: string, 
+  value: string
+}
+
+const Input = ({ type, name, placeholder, value }: InputProps): JSX.Element => {
   return (
     <input
       type={type}

@@ -1,6 +1,15 @@
-import './NewsFeed.css'
+import './NewsFeed.css';
 
-const News = (props): JSX.Element => {
+type NewsProps = {
+  news: {
+    id: string,
+    title: string,
+    image: string,
+    content: string
+  }
+}
+
+const News = (props: NewsProps): JSX.Element => {
   const { id, title, image, content } = props.news;
 
   return (
