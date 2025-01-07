@@ -35,7 +35,7 @@ function App(): JSX.Element {
     }
 
     console.log(token)
-  }, [token]);
+  }, [fetchTrigger]);
 
   const getDataForm = useCallback(async (form: AuthForm | null): Promise<void> => {
     setAuthData(form)

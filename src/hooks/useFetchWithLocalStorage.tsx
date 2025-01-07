@@ -61,6 +61,7 @@ export const useFetchWithLocalStorage = (
     };
 
     if (!url) return;
+
     fetchData();
 
     return () => setError(null);
