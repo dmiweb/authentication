@@ -16,7 +16,12 @@ function App(): JSX.Element {
   const [token, setToken] = useState<string | null>(null);
   const [fetchTrigger, setFetchTrigger] = useState<number>(0);
 
-
+  const [{ error }] = useFetchWithLocalStorage(
+    authData && import.meta.env.VITE_AUTH_URL,
+    { method: 'POST', body: JSON.stringify(authData) },
+    'site_access_token',
+    fetchTrigger
+  );
 
   useEffect(() => {
     const storageValue: string | null = localStorage.getItem('site_access_token');
@@ -31,13 +36,6 @@ function App(): JSX.Element {
 
     console.log(token)
   }, [token]);
-
-  const [{ error }] = useFetchWithLocalStorage(
-    authData && import.meta.env.VITE_AUTH_URL,
-    { method: 'POST', body: JSON.stringify(authData) },
-    'site_access_token',
-    fetchTrigger
-  );
 
   const getDataForm = useCallback(async (form: AuthForm | null): Promise<void> => {
     setAuthData(form)
