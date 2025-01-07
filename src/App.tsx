@@ -15,7 +15,17 @@ function App(): JSX.Element {
   const [access, setAccess] = useState<boolean>(false)
   const [fetchTrigger, setFetchTrigger] = useState<number>(0)
 
-  const token: string | null = localStorage.getItem('site_access_token');
+
+
+  useEffect(() => {
+    const token: string | null = localStorage.getItem('site_access_token');
+
+    if (token && 'token' in JSON.parse(token)) {
+      setAccess(true)
+    } else {
+      localStorage.removeItem('site_access_token');
+    }
+  }, []);
 
   const [{ error }] = useFetchWithLocalStorage(
     authData && import.meta.env.VITE_AUTH_URL,
@@ -23,14 +33,6 @@ function App(): JSX.Element {
     'site_access_token',
     fetchTrigger
   );
-
-  useEffect(() => {
-    if (token && 'token' in JSON.parse(token)) {
-      setAccess(true)
-    } else {
-      localStorage.removeItem('site_access_token');
-    }
-  }, [fetchTrigger]);
 
   const getDataForm = useCallback(async (form: AuthForm | null): Promise<void> => {
     setAuthData(form)
