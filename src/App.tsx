@@ -26,17 +26,16 @@ function App(): JSX.Element {
 
   useEffect(() => {
     if (token && 'token' in JSON.parse(token)) {
-      setAccess(true);
+      setAccess(true)
     } else {
-      localStorage.removeItem('site_access_token');
-      setAccess(false);
+      localStorage.removeItem('site_access_token')
     }
   }, [token])
 
   const getDataForm = useCallback(async (form: AuthForm | null): Promise<void> => {
     setAuthData(form)
     setFetchTrigger((prev) => prev + 1);
-  }, []);
+  }, [fetchTrigger]);
 
   const handlerLogout = () => {
     setAccess(false)
