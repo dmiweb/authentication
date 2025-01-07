@@ -27,19 +27,17 @@ function App(): JSX.Element {
     const storageValue: string | null = localStorage.getItem('site_access_token');
     const saveToken: string = storageValue && JSON.parse(storageValue).token;
 
-    if (storageValue && 'token' in JSON.parse(storageValue) && saveToken !== token) {
+    if (storageValue && 'token' in JSON.parse(storageValue)) {
       setToken(saveToken)
       if (!error) setAccess(true);
     } else {
       localStorage.removeItem('site_access_token');
     }
-  }, [token]);
+  }, [fetchTrigger]);
 
   const getDataForm = useCallback(async (form: AuthForm | null): Promise<void> => {
     setAuthData(form)
     setFetchTrigger((prev) => prev + 1);
-
-    if (token && !error) setAccess(true);
   }, []);
 
   const handlerLogout = () => {
