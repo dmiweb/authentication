@@ -19,9 +19,10 @@ function App(): JSX.Element {
 
 
   useEffect(() => {
-    const saveToken: string | null = localStorage.getItem('site_access_token');
+    const storageValue: string | null = localStorage.getItem('site_access_token');
+    const saveToken: string = storageValue && JSON.parse(storageValue).token;
 
-    if (saveToken && 'token' in JSON.parse(saveToken) && saveToken !== token) {
+    if (storageValue && 'token' in JSON.parse(storageValue) && saveToken !== token) {
       setToken(saveToken)
       setAccess(true)
     } else {
