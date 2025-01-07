@@ -2,15 +2,18 @@ import { useFetchWithLocalStorage } from '../../hooks/useFetchWithLocalStorage';
 import News from './News';
 import './NewsFeed.css'
 
-const NewsFeed = ({token}: {token: string | null}): JSX.Element => {
+const NewsFeed = ({ token }: { token: string | null }): JSX.Element => {
   // const saveToken = localStorage.getItem('site_access_token');
   // const { token } = saveToken && JSON.parse(saveToken);
 
-  const [{ data: news, loading, error }] = useFetchWithLocalStorage(import.meta.env.VITE_NEWS_URL, {
-    headers: {
-      Authorization: `Bearer ${token}`
+  const [{ data: news, loading, error }] = useFetchWithLocalStorage(
+    token ? import.meta.env.VITE_NEWS_URL : null,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
     }
-  });
+  );
 
   return (
     <section className='news-feed-page'>
