@@ -1,7 +1,7 @@
 import { AuthForm } from './models';
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback } from 'react';
 import { useFetchWithLocalStorage } from './hooks/useFetchWithLocalStorage';
-import Header from './components/Header/Header'
+import Header from './components/Header/Header';
 import Logo from './components/Logo/Logo';
 import AuthorizationForm from './components/AuthorizationForm/AuthorizationForm';
 import UserProfile from './components/UserProfile/UserProfile';
@@ -28,14 +28,14 @@ function App(): JSX.Element {
     if (token && 'token' in JSON.parse(token)) {
       setAccess(true)
     } else {
-      localStorage.removeItem('site_access_token')
+      localStorage.removeItem('site_access_token');
     }
-  }, [token])
+  }, [fetchTrigger]);
 
   const getDataForm = useCallback(async (form: AuthForm | null): Promise<void> => {
     setAuthData(form)
     setFetchTrigger((prev) => prev + 1);
-  }, [fetchTrigger]);
+  }, []);
 
   const handlerLogout = () => {
     setAccess(false)
