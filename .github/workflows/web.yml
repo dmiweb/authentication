@@ -31,9 +31,10 @@ jobs:
       run: |
         echo "Ищем ваш скомпилированный сайт"
         # Путь к скомпилированным файлам. Обычно это dist или build
-        #cp -r ./dist/* ./gh-pages/
+        mkdir ./build/
+        cp -r ./dist/* ./build/
         # Установка gh-pages
-        # npm install -g gh-pages
+        npm install -g gh-pages
         # Развёртывание
         gh-pages -d build
       env:
