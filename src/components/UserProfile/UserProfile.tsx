@@ -5,14 +5,15 @@ import Button from "../Button/Button";
 import './UserProfile.css';
 
 type UserProps = {
+  token: string | null,
   handlerLogout: () => void
 }
 
-const UserProfile = ({ handlerLogout }: UserProps): JSX.Element => {
+const UserProfile = ({ token, handlerLogout }: UserProps): JSX.Element => {
   const [user, setUser] = useState<TUser | null>(null);
 
-  const saveToken = localStorage.getItem('site_access_token');
-  const { token } = saveToken && JSON.parse(saveToken);
+  // const saveToken = localStorage.getItem('site_access_token');
+  // const { token } = saveToken && JSON.parse(saveToken);
   const saveUser = localStorage.getItem('site_user_profile');
 
   useFetchWithLocalStorage(
