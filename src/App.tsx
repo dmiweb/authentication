@@ -33,9 +33,7 @@ function App(): JSX.Element {
     } else {
       localStorage.removeItem('site_access_token');
     }
-
-    console.log(token)
-  }, [fetchTrigger]);
+  }, [authData]);
 
   const getDataForm = useCallback(async (form: AuthForm | null): Promise<void> => {
     setAuthData(form)
