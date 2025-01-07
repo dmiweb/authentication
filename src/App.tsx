@@ -28,7 +28,7 @@ function App(): JSX.Element {
     } else {
       localStorage.removeItem('site_access_token');
     }
-  }, [token]);
+  }, [fetchTrigger]);
 
   const [{ error }] = useFetchWithLocalStorage(
     authData && import.meta.env.VITE_AUTH_URL,
