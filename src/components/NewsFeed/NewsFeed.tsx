@@ -7,7 +7,9 @@ const NewsFeed = (): JSX.Element => {
   const { token } = saveToken && JSON.parse(saveToken);
 
   const [{ data: news, loading, error }] = useFetchWithLocalStorage(import.meta.env.VITE_NEWS_URL, {
+    method: "GET",
     headers: {
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`
     }
   });
