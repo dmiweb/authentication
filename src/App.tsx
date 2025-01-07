@@ -26,9 +26,10 @@ function App(): JSX.Element {
 
   useEffect(() => {
     if (token && 'token' in JSON.parse(token)) {
-      setAccess(true)
+      setAccess(true);
     } else {
-      localStorage.removeItem('site_access_token')
+      localStorage.removeItem('site_access_token');
+      setAccess(false);
     }
   }, [token])
 
