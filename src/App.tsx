@@ -12,20 +12,22 @@ import './App.css';
 
 function App(): JSX.Element {
   const [authData, setAuthData] = useState<{ login: string, password: string } | null>(null);
-  const [access, setAccess] = useState<boolean>(false)
-  const [fetchTrigger, setFetchTrigger] = useState<number>(0)
+  const [access, setAccess] = useState<boolean>(false);
+  const [token, setToken] = useState<string | null>(null);
+  const [fetchTrigger, setFetchTrigger] = useState<number>(0);
 
 
 
   useEffect(() => {
-    const token: string | null = localStorage.getItem('site_access_token');
+    const saveToken: string | null = localStorage.getItem('site_access_token');
 
-    if (token && 'token' in JSON.parse(token)) {
+    if (saveToken && 'token' in JSON.parse(saveToken) && saveToken !== token) {
+      setToken(saveToken)
       setAccess(true)
     } else {
       localStorage.removeItem('site_access_token');
     }
-  }, []);
+  }, [token]);
 
   const [{ error }] = useFetchWithLocalStorage(
     authData && import.meta.env.VITE_AUTH_URL,
