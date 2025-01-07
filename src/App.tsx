@@ -38,6 +38,8 @@ function App(): JSX.Element {
   const getDataForm = useCallback(async (form: AuthForm | null): Promise<void> => {
     setAuthData(form)
     setFetchTrigger((prev) => prev + 1);
+
+    if (token && !error) setAccess(true);
   }, []);
 
   const handlerLogout = () => {
