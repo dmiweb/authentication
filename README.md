@@ -3,4 +3,4 @@
 
 GitHub Page - https://dmiweb.github.io/authentication
 
-![CI](https://github.com/dmiweb/authentication/actions/workflows/web.yml/badge.svg)
+![CI](https://github.com/dmiweb/authentication/actions/workflows/static.yml/badge.svg)
