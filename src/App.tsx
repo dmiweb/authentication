@@ -16,7 +16,7 @@ function App(): JSX.Element {
   const [token, setToken] = useState<string | null>(null);
   const [fetchTrigger, setFetchTrigger] = useState<number>(0);
 
-  const [{ error }] = useFetchWithLocalStorage(
+  const [{ loading, error }] = useFetchWithLocalStorage(
     authData && import.meta.env.VITE_AUTH_URL,
     { method: 'POST', body: JSON.stringify(authData) },
     'site_access_token',
@@ -28,17 +28,16 @@ function App(): JSX.Element {
     const saveToken: string = storageValue && JSON.parse(storageValue).token;
 
     if (storageValue && 'token' in JSON.parse(storageValue)) {
-      setToken(saveToken)
-      // setAccess(true);
+      setToken(saveToken);
+      setAccess(true);
     } else {
       localStorage.removeItem('site_access_token');
     }
-  }, [authData, fetchTrigger]);
+  }, [loading]);
 
   const getDataForm = useCallback(async (form: AuthForm | null): Promise<void> => {
     setAuthData(form)
     setFetchTrigger((prev) => prev + 1);
-    if (token) setAccess(true)
   }, []);
 
   const handlerLogout = () => {
@@ -53,12 +52,12 @@ function App(): JSX.Element {
       <Header>
         <Logo />
         {!access && <AuthorizationForm getDataForm={getDataForm} />}
-        {access && <UserProfile token={token} handlerLogout={handlerLogout} />}
+        {access && token && <UserProfile token={token} handlerLogout={handlerLogout} />}
         {error && <div className='error-message'>{error}</div>}
       </Header>
       <Main>
         {!access && <GuestPage />}
-        {access && <NewsFeed token={token} />}
+        {access && token && <NewsFeed token={token} />}
       </Main>
     </>
   )

@@ -12,19 +12,16 @@ type UserProps = {
 const UserProfile = ({ token, handlerLogout }: UserProps): JSX.Element => {
   const [user, setUser] = useState<TUser | null>(null);
 
-  // const saveToken = localStorage.getItem('site_access_token');
-  // const { token } = saveToken && JSON.parse(saveToken);
-  const saveUser = localStorage.getItem('site_user_profile');
-
-  useFetchWithLocalStorage(
+  const [{ loading }] = useFetchWithLocalStorage(
     !user && token ? import.meta.env.VITE_USER_URL : null,
     { headers: { Authorization: `Bearer ${token}` } },
     'site_user_profile'
   );
 
   useEffect(() => {
-    if(saveUser) setUser(JSON.parse(saveUser));
-  }, [saveUser]);
+    const saveUser = localStorage.getItem('site_user_profile');
+    if (saveUser) setUser(JSON.parse(saveUser));
+  }, [loading]);
 
   return (
     <>
