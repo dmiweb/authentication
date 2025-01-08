@@ -25,7 +25,7 @@ const UserProfile = ({ token, handlerLogout }: UserProps): JSX.Element => {
 
   return (
     <>
-      {user &&
+      {!loading && user &&
         <div id={user.id} className="user-profile">
           <span className="user-profile-name">Hello, {user.name}</span>
           <div className='user-profile-wrap-avatar'>
