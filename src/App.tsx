@@ -29,7 +29,7 @@ function App(): JSX.Element {
 
     if (storageValue && 'token' in JSON.parse(storageValue)) {
       setToken(saveToken)
-      setAccess(true);
+      // setAccess(true);
     } else {
       localStorage.removeItem('site_access_token');
     }
@@ -38,7 +38,8 @@ function App(): JSX.Element {
   const getDataForm = useCallback(async (form: AuthForm | null): Promise<void> => {
     setAuthData(form)
     setFetchTrigger((prev) => prev + 1);
-  }, [setAuthData, setFetchTrigger]);
+    if (token) setAccess(true)
+  }, []);
 
   const handlerLogout = () => {
     setAccess(false)
