@@ -33,16 +33,16 @@ function App(): JSX.Element {
     } else {
       localStorage.removeItem('site_access_token');
     }
-  }, []);
+  }, [authData, fetchTrigger]);
 
   const getDataForm = useCallback(async (form: AuthForm | null): Promise<void> => {
     setAuthData(form)
     setFetchTrigger((prev) => prev + 1);
-    if(!error) setAccess(true);
-  }, []);
+  }, [setAuthData, setFetchTrigger]);
 
   const handlerLogout = () => {
     setAccess(false)
+    setToken(null)
     localStorage.removeItem('site_access_token');
     localStorage.removeItem('site_user_profile');
   }
