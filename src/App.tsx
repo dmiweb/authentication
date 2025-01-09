@@ -52,12 +52,12 @@ function App(): JSX.Element {
       <Header>
         <Logo />
         {!access && <AuthorizationForm getDataForm={getDataForm} />}
-        {access && token && <UserProfile token={token} handlerLogout={handlerLogout} />}
+        {!loading && access && token && <UserProfile token={token} handlerLogout={handlerLogout} />}
         {error && <div className='error-message'>{error}</div>}
       </Header>
       <Main>
         {!access && <GuestPage />}
-        {access && token && <NewsFeed token={token} />}
+        {!loading && access && token && <NewsFeed token={token} />}
       </Main>
     </>
   )
