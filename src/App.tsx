@@ -1,6 +1,7 @@
 import { AuthForm } from './models';
 import { useState, useEffect, useCallback } from 'react';
 import { useFetchWithLocalStorage } from './hooks/useFetchWithLocalStorage';
+import { useToken } from './hooks/useToken';
 import Header from './components/Header/Header';
 import Logo from './components/Logo/Logo';
 import AuthorizationForm from './components/AuthorizationForm/AuthorizationForm';
@@ -23,17 +24,26 @@ function App(): JSX.Element {
     fetchTrigger
   );
 
-  useEffect(() => {
-    const storageValue: string | null = localStorage.getItem('site_access_token');
-    const saveToken: string = storageValue && JSON.parse(storageValue).token;
+  const storedToken = !loading && useToken();
 
-    if (storageValue && 'token' in JSON.parse(storageValue)) {
-      setToken(saveToken);
+  useEffect(() => {
+    if (storedToken) {
+      setToken(storedToken);
       setAccess(true);
-    } else {
-      localStorage.removeItem('site_access_token');
     }
   }, [loading]);
+
+  // useEffect(() => {
+  //   const storageValue: string | null = localStorage.getItem('site_access_token');
+  //   const saveToken: string = storageValue && JSON.parse(storageValue).token;
+
+  //   if (storageValue && 'token' in JSON.parse(storageValue)) {
+  //     setToken(saveToken);
+  //     setAccess(true);
+  //   } else {
+  //     localStorage.removeItem('site_access_token');
+  //   }
+  // }, [loading]);
 
   const getDataForm = useCallback(async (form: AuthForm | null): Promise<void> => {
     setAuthData(form)
@@ -52,12 +62,12 @@ function App(): JSX.Element {
       <Header>
         <Logo />
         {!access && <AuthorizationForm getDataForm={getDataForm} />}
-        {!loading && access && token && <UserProfile token={token} handlerLogout={handlerLogout} />}
+        {!loading && access && token && <UserProfile handlerLogout={handlerLogout} />}
         {error && <div className='error-message'>{error}</div>}
       </Header>
       <Main>
         {!access && <GuestPage />}
-        {!loading && access && token && <NewsFeed token={token} />}
+        {!loading && access && token && <NewsFeed />}
       </Main>
     </>
   )

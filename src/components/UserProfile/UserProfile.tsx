@@ -1,16 +1,18 @@
 import { TUser } from '../../models';
 import { useState, useEffect } from 'react';
 import { useFetchWithLocalStorage } from '../../hooks/useFetchWithLocalStorage';
+import { useToken } from '../../hooks/useToken'; 
 import Button from "../Button/Button";
 import './UserProfile.css';
 
 type UserProps = {
-  token: string | null,
   handlerLogout: () => void
 }
 
-const UserProfile = ({ token, handlerLogout }: UserProps): JSX.Element => {
+const UserProfile = ({ handlerLogout }: UserProps): JSX.Element => {
   const [user, setUser] = useState<TUser | null>(null);
+
+  const token = useToken();
 
   const [{ loading }] = useFetchWithLocalStorage(
     token ? import.meta.env.VITE_USER_URL : null,
@@ -21,7 +23,7 @@ const UserProfile = ({ token, handlerLogout }: UserProps): JSX.Element => {
   useEffect(() => {
     const saveUser = localStorage.getItem('site_user_profile');
     if (saveUser) setUser(JSON.parse(saveUser));
-  }, [loading]);
+  }, []);
 
   return (
     <>
