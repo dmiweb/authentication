@@ -13,7 +13,7 @@ const UserProfile = ({ token, handlerLogout }: UserProps): JSX.Element => {
   const [user, setUser] = useState<TUser | null>(null);
 
   const [{ loading }] = useFetchWithLocalStorage(
-    !user && token ? import.meta.env.VITE_USER_URL : null,
+    token ? import.meta.env.VITE_USER_URL : null,
     { headers: { Authorization: `Bearer ${token}` } },
     'site_user_profile'
   );
