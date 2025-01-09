@@ -1,7 +1,8 @@
 import { TUser } from '../../models';
 import { useState, useEffect } from 'react';
 import { useFetchWithLocalStorage } from '../../hooks/useFetchWithLocalStorage';
-import { useToken } from '../../hooks/useToken'; 
+import { useGetToken } from '../../hooks/useGetToken';
+import { useGetUser } from '../../hooks/useGetUser';
 import Button from "../Button/Button";
 import './UserProfile.css';
 
@@ -10,28 +11,34 @@ type UserProps = {
 }
 
 const UserProfile = ({ handlerLogout }: UserProps): JSX.Element => {
-  const [user, setUser] = useState<TUser | null>(null);
-
-  const token = useToken();
+  const [loadUser, setLoadUser] = useState<boolean>(false);
+  const token = useGetToken();
+  const localStorageKey = 'site_user_profile';
 
   const [{ loading }] = useFetchWithLocalStorage(
-    token ? import.meta.env.VITE_USER_URL : null,
+    token && loadUser ? import.meta.env.VITE_USER_URL : null,
     { headers: { Authorization: `Bearer ${token}` } },
-    'site_user_profile'
+    localStorageKey
   );
 
+  const saveUser: TUser | null = useGetUser(loading);
+
   useEffect(() => {
-    const saveUser = localStorage.getItem('site_user_profile');
-    if (saveUser) setUser(JSON.parse(saveUser));
-  }, []);
+    const storedUser = localStorage.getItem(localStorageKey);
+    if (storedUser) {
+      setLoadUser(false);
+    } else {
+      setLoadUser(true);
+    }
+  }, [saveUser])
 
   return (
     <>
-      {!loading && user &&
-        <div id={user.id} className="user-profile">
-          <span className="user-profile-name">Hello, {user.name}</span>
+      {saveUser &&
+        <div id={saveUser.id} className="user-profile">
+          <span className="user-profile-name">Hello, {saveUser.name}</span>
           <div className='user-profile-wrap-avatar'>
-            <img src={user.avatar} className="user-profile-avatar" alt='user avatar' />
+            <img src={saveUser.avatar} className="user-profile-avatar" alt='user avatar' />
           </div>
           <Button type='button' className='profile-logout-btn' name='Logout' handler={handlerLogout} />
         </div>}

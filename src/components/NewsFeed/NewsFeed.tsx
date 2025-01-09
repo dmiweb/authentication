@@ -1,11 +1,11 @@
 import { useFetchWithLocalStorage } from '../../hooks/useFetchWithLocalStorage';
-import { useToken } from '../../hooks/useToken';
+import { useGetToken } from '../../hooks/useGetToken';
 import News from './News';
 import './NewsFeed.css'
 
 const NewsFeed = (): JSX.Element => {
 
-  const token = useToken();
+  const token = useGetToken();
 
   const [{ data: news, loading, error }] = useFetchWithLocalStorage(
     token ? import.meta.env.VITE_NEWS_URL : null,

@@ -1,7 +1,7 @@
 import { AuthForm } from './models';
 import { useState, useEffect, useCallback } from 'react';
 import { useFetchWithLocalStorage } from './hooks/useFetchWithLocalStorage';
-import { useToken } from './hooks/useToken';
+import { useGetToken } from './hooks/useGetToken';
 import Header from './components/Header/Header';
 import Logo from './components/Logo/Logo';
 import AuthorizationForm from './components/AuthorizationForm/AuthorizationForm';
@@ -14,36 +14,22 @@ import './App.css';
 function App(): JSX.Element {
   const [authData, setAuthData] = useState<{ login: string, password: string } | null>(null);
   const [access, setAccess] = useState<boolean>(false);
-  const [token, setToken] = useState<string | null>(null);
   const [fetchTrigger, setFetchTrigger] = useState<number>(0);
 
   const [{ loading, error }] = useFetchWithLocalStorage(
-    authData && import.meta.env.VITE_AUTH_URL,
+    authData ? import.meta.env.VITE_AUTH_URL : null,
     { method: 'POST', body: JSON.stringify(authData) },
     'site_access_token',
     fetchTrigger
   );
 
-  const storedToken = !loading && useToken();
+  const token = useGetToken(loading);
 
   useEffect(() => {
-    if (storedToken) {
-      setToken(storedToken);
+    if (token) {
       setAccess(true);
     }
-  }, [loading]);
-
-  // useEffect(() => {
-  //   const storageValue: string | null = localStorage.getItem('site_access_token');
-  //   const saveToken: string = storageValue && JSON.parse(storageValue).token;
-
-  //   if (storageValue && 'token' in JSON.parse(storageValue)) {
-  //     setToken(saveToken);
-  //     setAccess(true);
-  //   } else {
-  //     localStorage.removeItem('site_access_token');
-  //   }
-  // }, [loading]);
+  }, [token]);
 
   const getDataForm = useCallback(async (form: AuthForm | null): Promise<void> => {
     setAuthData(form)
@@ -52,7 +38,6 @@ function App(): JSX.Element {
 
   const handlerLogout = () => {
     setAccess(false)
-    setToken(null)
     localStorage.removeItem('site_access_token');
     localStorage.removeItem('site_user_profile');
   }
@@ -62,12 +47,12 @@ function App(): JSX.Element {
       <Header>
         <Logo />
         {!access && <AuthorizationForm getDataForm={getDataForm} />}
-        {!loading && access && token && <UserProfile handlerLogout={handlerLogout} />}
+        {access && <UserProfile handlerLogout={handlerLogout} />}
         {error && <div className='error-message'>{error}</div>}
       </Header>
       <Main>
         {!access && <GuestPage />}
-        {!loading && access && token && <NewsFeed />}
+        {access && <NewsFeed />}
       </Main>
     </>
   )
