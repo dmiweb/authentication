@@ -19,8 +19,8 @@ const UserProfile = ({ token, handlerLogout }: UserProps): JSX.Element => {
   );
 
   useEffect(() => {
-    const saveUser = !loading && localStorage.getItem('site_user_profile');
-    if (!loading && saveUser) setUser(JSON.parse(saveUser));
+    const saveUser = localStorage.getItem('site_user_profile');
+    if (saveUser) setUser(JSON.parse(saveUser));
   }, [loading]);
 
   return (
