@@ -28,8 +28,8 @@ function App(): JSX.Element {
     const saveToken: string = storageValue && JSON.parse(storageValue).token;
 
     if (storageValue && 'token' in JSON.parse(storageValue)) {
-      if (!token) setToken(saveToken);
-      if (token) setAccess(true);
+      setToken(saveToken);
+      setAccess(true);
     } else {
       localStorage.removeItem('site_access_token');
     }
