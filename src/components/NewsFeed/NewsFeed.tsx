@@ -5,7 +5,7 @@ import './NewsFeed.css'
 
 const NewsFeed = (): JSX.Element => {
 
-  const token = useGetToken();
+  const token: string | null = useGetToken();
 
   const [{ data: news, loading, error }] = useFetchWithLocalStorage(
     token ? import.meta.env.VITE_NEWS_URL : null,
@@ -13,7 +13,9 @@ const NewsFeed = (): JSX.Element => {
       headers: {
         Authorization: `Bearer ${token}`
       }
-    }
+    },
+    null,
+    token
   );
 
   return (

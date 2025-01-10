@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-// import {TUser} from '../models/index';
 import { TNews } from '../models/index';
 
 type FetchResult = {
@@ -12,7 +11,7 @@ export const useFetchWithLocalStorage = (
   url: string,
   opts = {},
   localeStorageKey: string | null = null,
-  trigger: number = 0
+  trigger: number | string | undefined | null = 0
 ): [FetchResult] => {
   const [data, setData] = useState<TNews[] | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
