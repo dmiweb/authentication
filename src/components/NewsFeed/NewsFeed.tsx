@@ -13,9 +13,7 @@ const NewsFeed = (): JSX.Element => {
       headers: {
         Authorization: `Bearer ${token}`
       }
-    },
-    null,
-    token
+    }
   );
 
   return (

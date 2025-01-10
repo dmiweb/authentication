@@ -18,8 +18,7 @@ const UserProfile = ({ handlerLogout }: UserProps): JSX.Element => {
   const [{ loading }] = useFetchWithLocalStorage(
     token && loadUser ? import.meta.env.VITE_USER_URL : null,
     { headers: { Authorization: `Bearer ${token}` } },
-    localStorageKey,
-    token
+    localStorageKey
   );
 
   const saveUser: TUser | null = useGetUser(loading);
