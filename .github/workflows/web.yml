@@ -1,5 +1,5 @@
 # Simple workflow for deploying static content to GitHub Pages
-name: Deploy static content to Pages
+name: Deploy App
 
 on:
   # Runs on pushes targeting the default branch
@@ -34,15 +34,15 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
+          cache: 'yarn'
       - name: Install dependencies
-        run: npm install
+        run: yarn install
       - name: Тестирование
-        run: npm run lint
+        run: yarn lint
       # - name: Install dependencies using npm ci
-      #   run: npm ci
+      #   run: yarn ci
       - name: Build
-        run: npm run build
+        run: yarn build
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Upload artifact
