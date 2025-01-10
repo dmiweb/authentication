@@ -37,8 +37,10 @@ jobs:
           cache: 'npm'
       - name: Install dependencies
         run: npm install
-      - name: Install dependencies using npm ci
-        run: npm ci
+      - name: Тестирование
+        run: npm run lint
+      # - name: Install dependencies using npm ci
+      #   run: npm ci
       - name: Build
         run: npm run build
       - name: Setup Pages
